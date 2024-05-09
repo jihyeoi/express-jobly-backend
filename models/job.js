@@ -155,6 +155,22 @@ class Job {
     return job;
   }
 
+  /** Given an array of job Ids, return a list of job information
+   *
+   * Returns [{ id, title, salary, equity, companyHandle, company }... ]
+   */
+
+  static async getMultipleJobs(ids) {
+    const jobRes = await db.query(
+      `SELECT * FROM jobs
+      WHERE id = ANY($1)`,
+      [ids]
+    );
+
+    return jobRes.rows;
+  }
+
+
   /** Update job data with `data`.
    *
    * This is a "partial update" --- it's fine if data doesn't contain

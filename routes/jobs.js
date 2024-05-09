@@ -28,7 +28,7 @@ router.post("/", ensureAdmin, async function (req, res, next) {
   const validator = jsonschema.validate(
     req.body,
     jobNewSchema,
-    {required: true}
+    { required: true }
   );
   if (!validator.valid) {
     const errs = validator.errors.map(e => e.stack);
@@ -59,7 +59,7 @@ router.get("/", async function (req, res, next) {
   const validator = jsonschema.validate(
     q,
     jobSearchSchema,
-    {required: true}
+    { required: true }
   );
   if (!validator.valid) {
     const errs = validator.errors.map(e => e.stack);
@@ -97,7 +97,7 @@ router.patch("/:id", ensureAdmin, async function (req, res, next) {
   const validator = jsonschema.validate(
     req.body,
     jobUpdateSchema,
-    {required: true}
+    { required: true }
   );
   if (!validator.valid) {
     const errs = validator.errors.map(e => e.stack);
@@ -118,5 +118,18 @@ router.delete("/:id", ensureAdmin, async function (req, res, next) {
   return res.json({ deleted: +req.params.id });
 });
 
+/** POST /batch
+ *
+ * Given a list of jobs ids, returns all jobs
+ *
+ * Authorization required: none
+ */
+
+router.post("/batch", async function (req, res, next) {
+  const jobIds = req.body.ids;
+  console.log("jobIds from backend", jobIds)
+  const jobs = await Job.getMultipleJobs(jobIds);
+  return res.json({ jobs });
+});
 
 module.exports = router;
