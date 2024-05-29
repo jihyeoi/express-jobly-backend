@@ -18,16 +18,14 @@ Jobly is a job board application built using Express.js, PostgreSQL, and Node.js
 1. **Clone the repository**
    ```bash
    git clone https://github.com/jihyeoi/jobly.git
-  cd jobly
+   cd jobly
    ```
-
 2. **Install Dependencies**
    ```bash
    npm install
-  ```
-
+   ```
 3. ***Set up the PostgreSQL database***
   ```bash
-   createdb jobly
-    createdb jobly_test
+  createdb jobly
+  createdb jobly_test
   ```
